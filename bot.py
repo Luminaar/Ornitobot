@@ -15,7 +15,9 @@ def get_proverb():
     proverbs = load_list('proverbs.txt')
 
     while True:
-        output = random.choice(proverbs).format(random.choice(birds), random.choice(birds))
+        bird1 = random.choice(birds).upper()
+        bied2 = random.choice(birds).upper()
+        output = random.choice(proverbs).format(bird1, bird2)
         if len(output) > 140:
             continue
         else:
