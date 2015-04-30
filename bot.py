@@ -4,6 +4,7 @@ import twitter
 import random 
 import credentials
 import os
+from datetime import date
 
 # changing current working directory so we can
 # use local paths when calling script from different place
@@ -19,11 +20,12 @@ def get_proverb():
     """Get a randomly generated proverb."""
     birds = load_list('birds.txt')
     proverbs = load_list('proverbs.txt')
+    day = date.today().day
 
     while True:
         bird1 = random.choice(birds).upper()
         bird2 = random.choice(birds).upper()
-        output = random.choice(proverbs).format(bird1, bird2)
+        output = proverbs[day].format(bird1, bird2)
         if len(output) > 140:
             continue
         else:
