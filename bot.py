@@ -3,6 +3,12 @@
 import twitter
 import random 
 import credentials
+import os
+
+# changing current working directory so we can
+# use local paths when calling script from different place
+script_dir = os.path.dirname(os.path.realpath(__file__))
+os.chdir(script_dir)
 
 def load_list(file_name):
     """Read lines from a file and return as a list."""
@@ -16,7 +22,7 @@ def get_proverb():
 
     while True:
         bird1 = random.choice(birds).upper()
-        bied2 = random.choice(birds).upper()
+        bird2 = random.choice(birds).upper()
         output = random.choice(proverbs).format(bird1, bird2)
         if len(output) > 140:
             continue
@@ -33,4 +39,4 @@ if __name__=='__main__':
                       access_token_key=credentials.token_key,
                       access_token_secret=credentials.token_secret)
 
-    print get_proverb()
+    api.PostUpdate(get_proverb())
