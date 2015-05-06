@@ -45,7 +45,7 @@ def get_reply(user_id):
 
     user = api.GetUser(user_id)
     screen_name = user.screen_name
-    output =  '@{user} Look up {bird}: {link}'.format(bird=bird.upper(),
+    output =  '@{user} Check out {bird}: {link}'.format(bird=bird.upper(),
                                                       link=url,
                                                       user=screen_name)
     return output
