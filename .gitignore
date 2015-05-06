@@ -4,3 +4,4 @@ venv/*
 *.swo
 *.pyc
 todo.txt
+last_status
