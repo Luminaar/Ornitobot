@@ -73,15 +73,13 @@ if __name__=='__main__':
 
     if '--reply' in sys.argv:  # reply to tweets tweeted at me
         since = get_last_status_id()
-        timeline = api.GetHomeTimeline(since_id=since)
-        if len(timeline) > 0:
-            set_last_status_id(timeline[0].id)
+        mentions = api.GetMentions(since_id=since)
+        if len(mentions) > 0:
+            set_last_status_id(mentions[0].id)
 
-            for status in timeline:
-                if (str(status.user.id) != credentials.my_id and
-                        credentials.my_screen_name in status.text):
-                   api.PostUpdate(get_reply(status.user.id))
-                   print status.text
+            for mention in mentions:
+               api.PostUpdate(get_reply(mention.user.id))
+               print mention.text
 
     else:
         api.PostUpdate(get_proverb())
