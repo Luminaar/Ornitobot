@@ -35,7 +35,7 @@ def get_proverb():
 
     return output
 
-def get_reply(user_id):
+def get_reply(screen_name):
     """Generate a reply to a user. Reply is made of a random
     birds name and a link to its wikipedia page."""
 
@@ -43,8 +43,6 @@ def get_reply(user_id):
     bird = random.choice(birds)
     url = 'http://en.wikipedia.org/wiki/{}'.format(urllib.quote(bird))
 
-    user = api.GetUser(user_id)
-    screen_name = user.screen_name
     output =  '@{user} Check out {bird}: {link}'.format(bird=bird.upper(),
                                                       link=url,
                                                       user=screen_name)
@@ -78,7 +76,7 @@ if __name__=='__main__':
             set_last_status_id(mentions[0].id)
 
             for mention in mentions:
-               api.PostUpdate(get_reply(mention.user.id))
+               api.PostUpdate(get_reply(mention.user.screen_name))
                print mention.text
 
     elif '--stream' in sys.argv:  # start a stream that is listening to replies
