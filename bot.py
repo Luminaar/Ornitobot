@@ -2,7 +2,7 @@
 
 import sys
 import twitter
-import random 
+import random
 import credentials
 import os
 from datetime import date
@@ -80,6 +80,28 @@ if __name__=='__main__':
             for mention in mentions:
                api.PostUpdate(get_reply(mention.user.id))
                print mention.text
+
+    elif '--stream' in sys.argv:  # start a stream that is listening to replies
+        stream = api.GetUserStream(withuser='birdproverb')
+
+        for obj in stream:
+
+            try:
+                text = obj['text']
+                if not 'birdproverb' in text:
+                    continue  # it is not a reply to us
+
+                _id = obj['id']
+                set_last_status_id(_id)
+
+                user_id = obj['user']['id']
+
+                api.PostUpdate(get_reply(user_id))
+                print 'Replied to user {}'.format(obj['user']['screen_name'])
+
+            except KeyError as e:
+                print obj
+
 
     else:
         api.PostUpdate(get_proverb())
